@@ -19,7 +19,7 @@ const PriceText = styled(Typography)`
 /**
  * A small card that displays quick information regarding a stock.
  * @component
- * @param {CardProps} props - Necessary props to
+ * @param {CardProps} props - Contains the information to display.
  * @returns A small UI Card that shows, at a glance, the current stock price
  *          and the trend.
  */
