@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/moonlit/static/css/main.1fd6ebf9.chunk.css",
-    "main.js": "/moonlit/static/js/main.e8108bce.chunk.js",
-    "main.js.map": "/moonlit/static/js/main.e8108bce.chunk.js.map",
+    "main.js": "/moonlit/static/js/main.8ecfe087.chunk.js",
+    "main.js.map": "/moonlit/static/js/main.8ecfe087.chunk.js.map",
     "runtime-main.js": "/moonlit/static/js/runtime-main.1c39e8aa.js",
     "runtime-main.js.map": "/moonlit/static/js/runtime-main.1c39e8aa.js.map",
     "static/js/2.e75e235b.chunk.js": "/moonlit/static/js/2.e75e235b.chunk.js",
@@ -15,6 +15,6 @@
     "static/js/runtime-main.1c39e8aa.js",
     "static/js/2.e75e235b.chunk.js",
     "static/css/main.1fd6ebf9.chunk.css",
-    "static/js/main.e8108bce.chunk.js"
+    "static/js/main.8ecfe087.chunk.js"
   ]
 }
