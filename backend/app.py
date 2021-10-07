@@ -46,8 +46,7 @@ def get_stocks():
 
 @app.route('/update', methods=['GET'])
 def update_stocks():
-    # TODO: Fetch from api
-    for s in Stock.query.all():
+    for s in Stock.query.order_by(Stock.price.desc()):
         stock = Stock.query.filter_by(id=s.id).first()
         stock.price = finnhubGet('/quote?symbol=' + stock.ticker)['c']
         stock.change = finnhubGet('/quote?symbol=' + stock.ticker)['d']

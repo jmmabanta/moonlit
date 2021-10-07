@@ -41,7 +41,7 @@ const StockCard = (props) => {
         ${props.currentPrice.toFixed(2) || 0.0} (
         {props.priceChange > 0
           ? '+$' + props.priceChange.toFixed(2)
-          : '-$' + -1 * props.priceChange.toFixed(2)}
+          : '-$' + (props.priceChange * -1).toFixed(2)}
         )
       </PriceText>
     </Card>
