@@ -4,7 +4,10 @@ import Typography from '@mui/material/Typography';
 
 const Header = () => {
   return (
-    <AppBar position="sticky" sx={{ backgroundColor: '#37425B' }}>
+    <AppBar
+      position="sticky"
+      sx={{ backgroundColor: '#37425B', padding: '0.25em' }}
+    >
       <Toolbar>
         <div style={{ flexDirection: 'column' }}>
           <Typography variant="h3" sx={{ margin: 0 }}>
