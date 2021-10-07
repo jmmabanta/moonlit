@@ -29,7 +29,11 @@ const StockCard = (props) => {
       <Typography variant="h4">{props.ticker}</Typography>
       <Typography variant="caption">{props.name}</Typography>
       <PriceText variant="h6" pricechange={props.priceChange}>
-        ${props.currentPrice || 0.0} ({props.priceChange || 0.0})
+        ${props.currentPrice || 0.0} (
+        {props.priceChange > 0
+          ? '+$' + props.priceChange
+          : '-$' + -1 * props.priceChange}
+        )
       </PriceText>
     </Card>
   );

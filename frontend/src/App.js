@@ -15,7 +15,7 @@ function App() {
 
   useEffect(() => {
     axios
-      .get(process.env.REACT_APP_API_URL)
+      .get(process.env.REACT_APP_API_URL + 'stocks')
       .then((res) => {
         console.log('CONNECTED!');
         console.log(res.data);

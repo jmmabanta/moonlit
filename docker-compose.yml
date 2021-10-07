@@ -6,7 +6,7 @@ services:
       context: ./backend
       dockerfile: Dockerfile.backend
     environment:
-      - POSTGRES_URI
+      - DATABASE_URL
     volumes:
       - ./backend:/app
     ports:
