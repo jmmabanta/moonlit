@@ -3,8 +3,8 @@ import { styled } from '@mui/system';
 
 const PriceText = styled(Typography)`
   color: ${(props) => {
-    if (props.pricechange >= 0) return '#00aa00';
-    else return '#ff0000';
+    if (props.pricechange >= 0) return '#18BC9D';
+    else return '#DF9DC1';
   }};
 `;
 
@@ -25,7 +25,16 @@ const PriceText = styled(Typography)`
  */
 const StockCard = (props) => {
   return (
-    <Card sx={{ width: '100vw', maxWidth: '220px', padding: '1em' }}>
+    <Card
+      sx={{
+        backgroundColor: '#1D6988',
+        color: 'white',
+        textShadow: '1px 1px #333333',
+        width: '100vw',
+        maxWidth: '220px',
+        padding: '1em'
+      }}
+    >
       <Typography variant="h4">{props.ticker}</Typography>
       <Typography variant="caption">{props.name}</Typography>
       <PriceText variant="h6" pricechange={props.priceChange}>
