@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.css": "/moonlit/static/css/main.6dea0f05.chunk.css",
-    "main.js": "/moonlit/static/js/main.dd10f22e.chunk.js",
-    "main.js.map": "/moonlit/static/js/main.dd10f22e.chunk.js.map",
+    "main.css": "/moonlit/static/css/main.1fd6ebf9.chunk.css",
+    "main.js": "/moonlit/static/js/main.e8108bce.chunk.js",
+    "main.js.map": "/moonlit/static/js/main.e8108bce.chunk.js.map",
     "runtime-main.js": "/moonlit/static/js/runtime-main.1c39e8aa.js",
     "runtime-main.js.map": "/moonlit/static/js/runtime-main.1c39e8aa.js.map",
     "static/js/2.e75e235b.chunk.js": "/moonlit/static/js/2.e75e235b.chunk.js",
     "static/js/2.e75e235b.chunk.js.map": "/moonlit/static/js/2.e75e235b.chunk.js.map",
     "index.html": "/moonlit/index.html",
-    "static/css/main.6dea0f05.chunk.css.map": "/moonlit/static/css/main.6dea0f05.chunk.css.map",
+    "static/css/main.1fd6ebf9.chunk.css.map": "/moonlit/static/css/main.1fd6ebf9.chunk.css.map",
     "static/js/2.e75e235b.chunk.js.LICENSE.txt": "/moonlit/static/js/2.e75e235b.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.1c39e8aa.js",
     "static/js/2.e75e235b.chunk.js",
-    "static/css/main.6dea0f05.chunk.css",
-    "static/js/main.dd10f22e.chunk.js"
+    "static/css/main.1fd6ebf9.chunk.css",
+    "static/js/main.e8108bce.chunk.js"
   ]
 }
