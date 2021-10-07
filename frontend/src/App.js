@@ -5,13 +5,31 @@ import axios from 'axios';
 import axiosRetry from 'axios-retry';
 import { useEffect, useState } from 'react';
 
-function App() {
+const App = () => {
   const [loading, setLoading] = useState(true);
+  const [updateProgress, setUpdateProgress] = useState(0);
 
   axiosRetry(axios, {
     retries: 999,
     retryDelay: (retryCount) => retryCount * 1000
   });
+
+  const updateCounter = () => {
+    setUpdateProgress((current) => (current < 100 ? (current += 5) : current));
+  };
+
+  let progressAnim = null;
+  const resetCounter = () => {
+    if (progressAnim !== null) {
+      clearInterval(progressAnim);
+      progressAnim = null;
+    }
+    setUpdateProgress(10);
+    progressAnim = setInterval(
+      updateCounter,
+      process.env.REACT_APP_API_UPDATE / 20
+    );
+  };
 
   useEffect(() => {
     axios
@@ -30,12 +48,12 @@ function App() {
 
   return (
     <div className="App">
-      <Header />
+      <Header updateProgress={updateProgress} />
       <Container maxWidth="none" sx={{ paddingTop: '2em' }}>
-        <StockPortfolio />
+        <StockPortfolio resetCounter={resetCounter} />
       </Container>
     </div>
   );
-}
+};
 
 export default App;

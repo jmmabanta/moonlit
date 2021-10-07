@@ -9,16 +9,12 @@ const PriceText = styled(Typography)`
 `;
 
 /**
+ * A small card that displays quick information regarding a stock.
  * @typedef CardProps
  * @property {string} ticker The stock ticker.
  * @property {string} name The name of the company.
  * @property {float} currentPrice The current price of the stock.
  * @property {float} priceChange The change in price of the stock (+/-).
- */
-
-/**
- * A small card that displays quick information regarding a stock.
- * @component
  * @param {CardProps} props - Contains the information to display.
  * @returns A small UI Card that shows, at a glance, the current stock price
  *          and the trend.

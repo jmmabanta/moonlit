@@ -3,7 +3,15 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import StockCard from './StockCard';
 
-const StockPortfolio = () => {
+/**
+ * The 'main screen' that displays all of the user's stocks.
+ * @typedef PortfolioProps
+ * @property {Function} resetCounter Reset the progress once stocks update
+ *                                   and restart animation.
+ * @param {PortfolioProps} props
+ * @returns A grid of stock cards, which display the user's stock portfolio.
+ */
+const StockPortfolio = (props) => {
   const [stockData, setStockData] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -13,6 +21,7 @@ const StockPortfolio = () => {
       .then((res) => {
         console.log(res.data);
         setStockData(res.data);
+        props.resetCounter();
         setLoading(false);
       })
       .catch((err) => {
@@ -22,7 +31,8 @@ const StockPortfolio = () => {
 
   useEffect(() => {
     updateStockData();
-    setInterval(updateStockData, 45000);
+    setInterval(updateStockData, process.env.REACT_APP_API_UPDATE);
+    // eslint-disable-next-line
   }, []);
 
   if (loading) {

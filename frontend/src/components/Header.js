@@ -1,8 +1,17 @@
+import { CircularProgress } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 
-const Header = () => {
+/**
+ * The App Bar at the top of the page.
+ * @typedef HeaderProps
+ * @property {int} updateProgress An integer (0-100) that indcates
+ *                                how filled the update progress circle is.
+ * @param {HeaderProps} props Includes the progress until next update.
+ * @returns The header at the top of the page.
+ */
+const Header = (props) => {
   return (
     <AppBar
       position="sticky"
@@ -17,6 +26,7 @@ const Header = () => {
             To the moon, To the stars...
           </Typography>
         </div>
+        <CircularProgress variant="determinate" value={props.updateProgress} />
       </Toolbar>
     </AppBar>
   );
