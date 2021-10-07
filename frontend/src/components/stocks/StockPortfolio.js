@@ -8,7 +8,7 @@ const StockPortfolio = () => {
 
   useEffect(() => {
     axios
-      .get(process.env.REACT_APP_API_URL + 'stocks')
+      .get(process.env.REACT_APP_API_URL + '/update')
       .then((res) => {
         console.log(res.data);
         setStockData(res.data);
