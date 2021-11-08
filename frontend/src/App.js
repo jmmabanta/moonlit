@@ -1,9 +1,9 @@
 import Container from '@mui/material/Container';
 import Header from './components/Header';
-import StockPortfolio from './components/stocks/StockPortfolio';
 import axios from 'axios';
 import axiosRetry from 'axios-retry';
 import { useEffect, useState } from 'react';
+import Body from './components/Body';
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -50,7 +50,7 @@ const App = () => {
     <div className="App">
       <Header updateProgress={updateProgress} />
       <Container maxWidth="none" sx={{ paddingTop: '2em' }}>
-        <StockPortfolio resetCounter={resetCounter} />
+        <Body isLoggedIn={false} resetCounter={resetCounter} />
       </Container>
     </div>
   );
