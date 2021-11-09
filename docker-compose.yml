@@ -8,6 +8,7 @@ services:
     environment:
       - DATABASE_URL
       - FINNHUB_KEY
+      - GOOGLE_CLIENT_ID
     volumes:
       - ./backend:/app
     ports:

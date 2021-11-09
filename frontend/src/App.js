@@ -9,6 +9,8 @@ const App = () => {
   const [loading, setLoading] = useState(true);
   const [updateProgress, setUpdateProgress] = useState(0);
 
+  const [user, setUser] = useState({});
+
   axiosRetry(axios, {
     retries: 999,
     retryDelay: (retryCount) => retryCount * 1000
@@ -31,6 +33,10 @@ const App = () => {
     );
   };
 
+  const loginUser = (user) => {
+    setUser(user);
+  };
+
   useEffect(() => {
     axios
       .get(process.env.REACT_APP_API_URL)
@@ -48,9 +54,17 @@ const App = () => {
 
   return (
     <div className="App">
-      <Header updateProgress={updateProgress} />
+      <Header
+        updateProgress={updateProgress}
+        isLoggedIn={!user || Object.keys(user).length !== 0}
+        loginUser={loginUser}
+      />
       <Container maxWidth="none" sx={{ paddingTop: '2em' }}>
-        <Body isLoggedIn={false} resetCounter={resetCounter} />
+        <Body
+          isLoggedIn={!user || Object.keys(user).length !== 0}
+          loginUser={loginUser}
+          resetCounter={resetCounter}
+        />
       </Container>
     </div>
   );

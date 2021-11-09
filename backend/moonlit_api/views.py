@@ -1,9 +1,14 @@
 import sys
 import os
 import requests
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
 from .models import Stock
 from .database import db
+import google.auth.transport.requests
+from google.oauth2 import id_token
+
+GOOGLE_CLIENT_ID = os.environ.get('GOOGLE_CLIENT_ID')
+VALID_ISSUERS = ['accounts.google.com', 'https://accounts.google.com']
 
 main = Blueprint('main', __name__)
 
@@ -15,9 +20,24 @@ def finnhubGet(location=''):
     return requests.get(url, headers=token).json()
 
 
-@main.route('/')
+@main.route('/', methods=['GET'])
 def main_index():
     return "API CONNECTED! :)"
+
+
+@main.route('/', methods=['POST'])
+# From https://github.com/adpeace/helloapp-auth-example
+def verify_user():
+    token_id = request.form.get('token_id')
+    google_request = google.auth.transport.requests.Request()
+
+    user_info = id_token.verify_oauth2_token(
+        token_id, google_request, GOOGLE_CLIENT_ID)
+
+    if user_info['iss'] not in VALID_ISSUERS:
+        raise ValueError('Wrong Issuer')
+    print(user_info, file=sys.stderr)
+    return jsonify(user_info)
 
 
 @main.route('/stocks', methods=['GET'])
