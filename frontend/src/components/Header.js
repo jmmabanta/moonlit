@@ -8,7 +8,10 @@ import { GoogleLogout } from 'react-google-login';
  * The App Bar at the top of the page.
  * @typedef HeaderProps
  * @property {int} updateProgress An integer (0-100) that indcates
- *                                how filled the update progress circle is.
+ *    how filled the update progress circle is.
+ * @property {boolean} isLoggedIn Determines whether or not to display the
+ *    logout button.
+ * @property {function} loginUser Sets the current logged in user state.
  * @param {HeaderProps} props Includes the progress until next update.
  * @returns The header at the top of the page.
  */

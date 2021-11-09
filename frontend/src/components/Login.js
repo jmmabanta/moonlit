@@ -4,6 +4,13 @@ import { GoogleLogin } from 'react-google-login';
 
 const CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 
+/**
+ * The login introduction screen to Moonlit
+ * @typedef LoginProps
+ * @property {function} loginUser Sets the current logged in user state.
+ * @param {LoginProps} props
+ * @returns A basic screen prompting user to login with Google.
+ */
 const Login = (props) => {
   const handleSuccess = (res) => {
     const authenticate = async () => {
