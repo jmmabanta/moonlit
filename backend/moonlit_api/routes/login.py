@@ -17,6 +17,7 @@ def login_user():
     token_id = request.form.get('token_id')
     google_request = google.auth.transport.requests.Request()
 
+    # Verify login token
     user_info = id_token.verify_oauth2_token(
         token_id, google_request, GOOGLE_CLIENT_ID)
 
@@ -25,10 +26,10 @@ def login_user():
 
     google_id = hex(int(user_info['sub']))
 
-    new_user = User(google_id, user_info['name'],
-                    user_info['email'], user_info['picture'], [])
-
+    # Add user to db if they are new
     if db.session.query(User.id).filter_by(google_id=google_id).first() is None:
+        new_user = User(google_id, user_info['name'],
+                        user_info['email'], user_info['picture'], [])
         db.session.add(new_user)
         db.session.commit()
 
