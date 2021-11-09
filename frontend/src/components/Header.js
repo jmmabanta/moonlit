@@ -45,6 +45,7 @@ const Header = (props) => {
             clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
             onLogoutSuccess={(res) => {
               props.loginUser({});
+              window.location.reload();
             }}
           />
         )}

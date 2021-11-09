@@ -1,6 +1,7 @@
 import { Container, Typography } from '@mui/material';
 import axios from 'axios';
 import { GoogleLogin } from 'react-google-login';
+import { generateNewToken } from './utils/generateNewToken';
 
 const CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 
@@ -27,6 +28,7 @@ const Login = (props) => {
       }
     };
     authenticate();
+    generateNewToken(res);
   };
 
   const handleFailure = (res) => {
