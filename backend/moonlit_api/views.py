@@ -2,7 +2,7 @@ import sys
 import os
 import requests
 from flask import Blueprint, jsonify, request
-from .models import Stock
+from .models import Stock, User
 from .database import db
 import google.auth.transport.requests
 from google.oauth2 import id_token
@@ -27,7 +27,7 @@ def main_index():
 
 @main.route('/', methods=['POST'])
 # From https://github.com/adpeace/helloapp-auth-example
-def verify_user():
+def login_user():
     token_id = request.form.get('token_id')
     google_request = google.auth.transport.requests.Request()
 
@@ -36,7 +36,16 @@ def verify_user():
 
     if user_info['iss'] not in VALID_ISSUERS:
         raise ValueError('Wrong Issuer')
-    print(user_info, file=sys.stderr)
+
+    google_id = hex(int(user_info['sub']))
+
+    new_user = User(google_id, user_info['name'],
+                    user_info['email'], user_info['picture'], [])
+
+    if db.session.query(User.id).filter_by(google_id=google_id).first() is None:
+        db.session.add(new_user)
+        db.session.commit()
+
     return jsonify(user_info)
 
 
