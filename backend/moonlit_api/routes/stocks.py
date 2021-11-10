@@ -29,7 +29,7 @@ def verify_stock(ticker):
 
     # Check if stock ticker exists, and add it to master db
     results = finnhubGet('/search?q=' + ticker)
-    print(results, file=sys.stderr)
+    # print(results, file=sys.stderr)
     if results['count'] >= 1:
         new_stock_ticker = results['result'][0]['symbol']
         new_stock_name = results['result'][0]['description']

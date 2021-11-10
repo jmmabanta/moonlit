@@ -57,6 +57,7 @@ const TickerInput = styled(TextField)({
 const AddStock = (props) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [newTicker, setNewTicker] = useState('');
+  const [fetchingStock, setFetchingStock] = useState(false);
 
   const handleOpen = (e) => {
     setAnchorEl(e.currentTarget);
@@ -71,6 +72,7 @@ const AddStock = (props) => {
   };
 
   const submitTicker = async () => {
+    setFetchingStock(true);
     let ticker = new FormData();
     ticker.set('ticker', newTicker);
     ticker.set('user_id', props.user['sub']);
@@ -79,6 +81,7 @@ const AddStock = (props) => {
       .post(process.env.REACT_APP_API_URL + '/add', ticker)
       .then((res) => {
         props.newTicker(res.data);
+        setFetchingStock(false);
       });
 
     setNewTicker('');
@@ -128,6 +131,7 @@ const AddStock = (props) => {
               label="Enter Stock Ticker"
               variant="outlined"
               value={newTicker}
+              disabled={fetchingStock}
               onChange={handleTicker}
               sx={{ marginRight: '1em' }}
               onKeyDown={(e) => {
@@ -136,7 +140,11 @@ const AddStock = (props) => {
                 }
               }}
             />
-            <Button variant="outlined" onClick={submitTicker}>
+            <Button
+              variant="outlined"
+              disabled={fetchingStock}
+              onClick={submitTicker}
+            >
               Add Stock
             </Button>
           </div>
