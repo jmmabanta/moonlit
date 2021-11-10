@@ -63,6 +63,7 @@ const App = () => {
         <Body
           isLoggedIn={!user || Object.keys(user).length !== 0}
           loginUser={loginUser}
+          user={user}
           resetCounter={resetCounter}
         />
       </Container>

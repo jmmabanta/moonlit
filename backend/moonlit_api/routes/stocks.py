@@ -1,8 +1,8 @@
 import os
 import sys
 import requests
-from flask import Blueprint, jsonify
-from ..models import Stock
+from flask import Blueprint, jsonify, request
+from ..models import Stock, User
 from ..database import db
 
 stocks = Blueprint('stocks', __name__)
@@ -20,22 +20,26 @@ def main_index():
     return "API CONNECTED! :)"
 
 
-@stocks.route('/stocks', methods=['GET'])
-def get_stocks():
-    stock_query = Stock.query.all()
+def get_portfolio(user_id):
+    return User.query.filter_by(google_id=user_id).first().portfolio
+
+
+def get_stocks(user_id):
+    portfolio = get_portfolio(user_id)
+    stock_query = Stock.query.filter(Stock.ticker.in_(portfolio)).all()
     stocks = [{'id': s.id, 'ticker': s.ticker, 'name': s.name,
                'price': float(s.price), 'change': float(s.change)} for s in stock_query]
     return jsonify(stocks)
 
 
-@stocks.route('/update', methods=['GET'])
+# TODO: Make this update independently of browser
+@stocks.route('/update', methods=['POST'])
 def update_stocks():
-    for s in Stock.query.order_by(Stock.price.desc()):
+    user_id = hex(int(request.form.get('user_id')))
+    portfolio = get_portfolio(user_id)
+    for s in Stock.query.filter(Stock.ticker.in_(portfolio)).order_by(Stock.price.desc()):
         stock = Stock.query.filter_by(id=s.id).first()
         stock.price = finnhubGet('/quote?symbol=' + stock.ticker)['c']
         stock.change = finnhubGet('/quote?symbol=' + stock.ticker)['d']
-        print(stock.ticker, file=sys.stderr)
-        print(stock.price, file=sys.stderr)
-        print(stock.change, file=sys.stderr)
     db.session.commit()
-    return get_stocks()
+    return get_stocks(user_id)
