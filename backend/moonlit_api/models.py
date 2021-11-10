@@ -27,6 +27,12 @@ class Stock(db.Model):
     price = db.Column(db.Numeric(20, 2), nullable=False, default=0.00)
     change = db.Column(db.Numeric(20, 2), nullable=False, default=0.00)
 
+    def __init__(self, ticker, name, price, change):
+        self.ticker = ticker
+        self.name = name
+        self.price = price
+        self.change = change
+
 
 class User(db.Model):
     __tablename__ = 'users'

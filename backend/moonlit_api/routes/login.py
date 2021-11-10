@@ -27,7 +27,7 @@ def login_user():
     google_id = hex(int(user_info['sub']))
 
     # Add user to db if they are new
-    if db.session.query(User.id).filter_by(google_id=google_id).first() is None:
+    if User.query.filter_by(google_id=google_id).first() is None:
         new_user = User(google_id, user_info['name'],
                         user_info['email'], user_info['picture'], [])
         db.session.add(new_user)

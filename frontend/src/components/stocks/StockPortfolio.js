@@ -2,6 +2,7 @@ import { Container, Grid, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import StockCard from './StockCard';
+import AddStock from './AddStock';
 
 /**
  * The 'main screen' that displays all of the user's stocks.
@@ -16,6 +17,11 @@ const StockPortfolio = (props) => {
   const [stockData, setStockData] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const newTicker = (newStocks) => {
+    setStockData(newStocks);
+    updateStockData();
+  };
+
   const updateStockData = () => {
     let user_id = new FormData();
     user_id.set('user_id', props.user['sub']);
@@ -24,7 +30,7 @@ const StockPortfolio = (props) => {
       .then((res) => {
         console.log(res.data);
         setStockData(res.data);
-        props.resetCounter();
+        if (res.data.length > 0) props.resetCounter();
         setLoading(false);
       })
       .catch((err) => {
@@ -68,6 +74,7 @@ const StockPortfolio = (props) => {
           </Typography>
         </Container>
       )}
+      <AddStock user={props.user} newTicker={newTicker} />
     </Grid>
   );
 };

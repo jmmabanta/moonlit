@@ -73,8 +73,13 @@ const AddStock = (props) => {
   const submitTicker = async () => {
     let ticker = new FormData();
     ticker.set('ticker', newTicker);
+    ticker.set('user_id', props.user['sub']);
 
-    await axios.post(process.env.REACT_APP_API_URL + '/add', ticker);
+    await axios
+      .post(process.env.REACT_APP_API_URL + '/add', ticker)
+      .then((res) => {
+        props.newTicker(res.data);
+      });
 
     setNewTicker('');
   };
@@ -125,6 +130,11 @@ const AddStock = (props) => {
               value={newTicker}
               onChange={handleTicker}
               sx={{ marginRight: '1em' }}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  submitTicker();
+                }
+              }}
             />
             <Button variant="outlined" onClick={submitTicker}>
               Add Stock
