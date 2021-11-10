@@ -19,7 +19,7 @@ const Body = (props) => {
   return (
     <>
       <StockPortfolio user={props.user} resetCounter={props.resetCounter} />
-      <AddStock />
+      <AddStock user={props.user} />
     </>
   );
 };

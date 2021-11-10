@@ -13,6 +13,7 @@ import { styled } from '@mui/system';
 import AddIcon from '@mui/icons-material/Add';
 import axios from 'axios';
 
+// From: https://stackoverflow.com/questions/58963242/change-border-color-on-material-ui-textfield
 const TickerInput = styled(TextField)({
   [`& .${outlinedInputClasses.root} .${outlinedInputClasses.notchedOutline}`]: {
     borderColor: 'white'
@@ -46,7 +47,14 @@ const TickerInput = styled(TextField)({
   }
 });
 
-const AddStock = () => {
+/**
+ * Lets the user add stocks to their portfolio.
+ * @typedef AddStockProps
+ * @property {Object} user The current logged in user.
+ * @param {AddStockProps} props
+ * @returns A button on the bottom right to let user add stocks.
+ */
+const AddStock = (props) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [newTicker, setNewTicker] = useState('');
 
