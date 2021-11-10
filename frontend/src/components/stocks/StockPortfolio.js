@@ -60,6 +60,14 @@ const StockPortfolio = (props) => {
           </Grid>
         );
       })}
+      {stockData.length === 0 && (
+        <Container sx={{ color: '#aaaaaa' }}>
+          <Typography variant="h4">Nothing here!</Typography>
+          <Typography variant="overline">
+            Try adding some stocks using the button in the bottom right!
+          </Typography>
+        </Container>
+      )}
     </Grid>
   );
 };
