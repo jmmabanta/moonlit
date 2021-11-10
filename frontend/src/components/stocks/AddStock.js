@@ -4,7 +4,6 @@ import {
   Fab,
   Popover,
   Tooltip,
-  Typography,
   TextField,
   outlinedInputClasses,
   inputLabelClasses,
@@ -12,7 +11,6 @@ import {
 } from '@mui/material';
 import { styled } from '@mui/system';
 import AddIcon from '@mui/icons-material/Add';
-import Add from '@mui/icons-material/Add';
 import axios from 'axios';
 
 const TickerInput = styled(TextField)({
