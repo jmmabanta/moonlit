@@ -43,3 +43,11 @@ def update_stocks():
         stock.change = finnhubGet('/quote?symbol=' + stock.ticker)['d']
     db.session.commit()
     return get_stocks(user_id)
+
+
+@stocks.route('/add', methods=['POST'])
+# TODO: Add stock ticker verification, and add it to master database and to user
+def add_stock():
+    ticker = request.form.get('ticker')
+    print(ticker, file=sys.stderr)
+    return "Getting Stock: " + str.upper(ticker)
