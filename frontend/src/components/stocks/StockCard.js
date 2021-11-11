@@ -1,5 +1,6 @@
-import { Card, Typography } from '@mui/material';
+import { Card, Fab, Typography } from '@mui/material';
 import { styled } from '@mui/system';
+import RemoveIcon from '@mui/icons-material/Remove';
 
 const PriceText = styled(Typography)`
   color: ${(props) => {
@@ -11,15 +12,21 @@ const PriceText = styled(Typography)`
 /**
  * A small card that displays quick information regarding a stock.
  * @typedef CardProps
+ * @property {int} id The stock's id number (used for removal).
  * @property {string} ticker The stock ticker.
  * @property {string} name The name of the company.
  * @property {float} currentPrice The current price of the stock.
  * @property {float} priceChange The change in price of the stock (+/-).
+ * @property {function} removeStock Function to remove stock from portfolio.
  * @param {CardProps} props - Contains the information to display.
  * @returns A small UI Card that shows, at a glance, the current stock price
  *          and the trend.
  */
 const StockCard = (props) => {
+  const remove = () => {
+    props.removeStock(props.id);
+  };
+
   return (
     <Card
       sx={{
@@ -28,7 +35,8 @@ const StockCard = (props) => {
         textShadow: '1px 1px #333333',
         width: '100vw',
         maxWidth: '220px',
-        padding: '1em'
+        padding: '1em',
+        position: 'relative'
       }}
     >
       <Typography variant="h4">{props.ticker}</Typography>
@@ -40,6 +48,15 @@ const StockCard = (props) => {
           : '-$' + (props.priceChange * -1).toFixed(2)}
         )
       </PriceText>
+      <Fab
+        size="small"
+        color="secondary"
+        aria-label="remove-stock"
+        sx={{ position: 'absolute', top: 10, right: 10 }}
+        onClick={remove}
+      >
+        <RemoveIcon />
+      </Fab>
     </Card>
   );
 };

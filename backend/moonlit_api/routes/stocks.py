@@ -1,6 +1,3 @@
-import os
-import sys
-import requests
 from flask import Blueprint, jsonify, request
 from ..models import Stock, User
 from ..database import db
@@ -78,3 +75,13 @@ def add_stock():
         db.session.commit()
         return get_stocks(user_id)
     return "Stock Not Found!"
+
+
+@stocks.route('/remove', methods=['POST'])
+def remove_stock():
+    user_id = hex(int(request.form.get('user_id')))
+    user = User.query.filter_by(google_id=user_id).first()
+    ticker = str.upper(request.form.get('ticker'))
+    user.portfolio.remove(ticker)
+    db.session.commit()
+    return "STOCK REMOVED!"

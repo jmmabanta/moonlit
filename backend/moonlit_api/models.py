@@ -3,10 +3,15 @@ from sqlalchemy.dialects.postgresql import ARRAY
 from .database import db
 
 
-# From: https://stackoverflow.com/questions/28710520/flask-postgresql-array-not-permanently-updating/49138188
+# From: https://stackoverflow.com/questions/52643188/how-to-search-using-sqlalchemy-in-a-mutable-array
+# Allows PostgreSQL arrays to be mutable
 class MutableList(Mutable, list):
     def append(self, value):
         list.append(self, value)
+        self.changed()
+
+    def remove(self, value):
+        list.remove(self, value)
         self.changed()
 
     @classmethod

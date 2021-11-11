@@ -38,6 +38,19 @@ const StockPortfolio = (props) => {
       });
   };
 
+  const removeStock = (id) => {
+    const removeForm = new FormData();
+    removeForm.set('user_id', props.user['sub']);
+    removeForm.set('ticker', stockData[id]['ticker']);
+
+    setStockData((old) => {
+      old.splice(id, 1);
+      return old;
+    });
+
+    axios.post(process.env.REACT_APP_API_URL + '/remove', removeForm);
+  };
+
   useEffect(() => {
     updateStockData();
     setInterval(updateStockData, process.env.REACT_APP_API_UPDATE);
@@ -58,10 +71,12 @@ const StockPortfolio = (props) => {
         return (
           <Grid item key={idx}>
             <StockCard
+              id={idx}
               ticker={stock['ticker']}
               name={stock['name']}
               currentPrice={stock['price']}
               priceChange={stock['change']}
+              removeStock={removeStock}
             />
           </Grid>
         );
