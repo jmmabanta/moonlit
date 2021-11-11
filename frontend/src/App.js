@@ -4,6 +4,7 @@ import axios from 'axios';
 import axiosRetry from 'axios-retry';
 import { useEffect, useState } from 'react';
 import Body from './components/Body';
+import { Typography } from '@mui/material';
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -67,6 +68,19 @@ const App = () => {
           user={user}
           resetCounter={resetCounter}
         />
+        <div style={{ position: 'fixed', bottom: 5, color: '#aaaaaa' }}>
+          <Typography variant="overline">
+            © 2021 John Mabanta ·{' '}
+            <a
+              href="https://github.com/jmmabanta/moonlit"
+              target="_blank"
+              rel="noreferrer"
+              style={{ color: '#aaaaaa' }}
+            >
+              SOURCE CODE
+            </a>
+          </Typography>
+        </div>
       </Container>
     </div>
   );
