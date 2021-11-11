@@ -72,8 +72,9 @@ def add_stock():
 
     verification = verify_stock(ticker)
     if verification[0]:
-        if verification[1] in user.portfolio:
+        if verification[1] in user.portfolio:  # Prevent duplicate entries
             return get_stocks(user_id)
         user.portfolio.append(verification[1])
         db.session.commit()
-    return get_stocks(user_id)
+        return get_stocks(user_id)
+    return "Stock Not Found!"

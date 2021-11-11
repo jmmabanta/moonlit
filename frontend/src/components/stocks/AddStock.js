@@ -7,7 +7,10 @@ import {
   TextField,
   outlinedInputClasses,
   inputLabelClasses,
-  Button
+  Button,
+  Snackbar,
+  Alert,
+  AlertTitle
 } from '@mui/material';
 import { styled } from '@mui/system';
 import AddIcon from '@mui/icons-material/Add';
@@ -59,6 +62,9 @@ const AddStock = (props) => {
   const [newTicker, setNewTicker] = useState('');
   const [fetchingStock, setFetchingStock] = useState(false);
 
+  const [openAlert, setOpenAlert] = useState(false);
+  const [success, setSuccess] = useState(false);
+
   const handleOpen = (e) => {
     setAnchorEl(e.currentTarget);
   };
@@ -71,6 +77,10 @@ const AddStock = (props) => {
     setNewTicker(e.target.value);
   };
 
+  const handleCloseAlert = () => {
+    setOpenAlert(false);
+  };
+
   const submitTicker = async () => {
     setFetchingStock(true);
     let ticker = new FormData();
@@ -80,10 +90,16 @@ const AddStock = (props) => {
     await axios
       .post(process.env.REACT_APP_API_URL + '/add', ticker)
       .then((res) => {
-        props.newTicker(res.data);
+        if (typeof res.data !== 'string') {
+          props.newTicker(res.data);
+          setSuccess(true);
+        } else {
+          setSuccess(false);
+        }
         setFetchingStock(false);
       });
 
+    setOpenAlert(true);
     setNewTicker('');
   };
 
@@ -150,6 +166,23 @@ const AddStock = (props) => {
           </div>
         </Container>
       </Popover>
+      <Snackbar
+        open={openAlert}
+        onClose={handleCloseAlert}
+        autoHideDuration={5000}
+      >
+        {success ? (
+          <Alert onClose={handleCloseAlert} severity="success">
+            <AlertTitle>SUCCESS!!!</AlertTitle>
+            Stock was successfully added!
+          </Alert>
+        ) : (
+          <Alert onClose={handleCloseAlert} severity="error">
+            <AlertTitle>ERROR!!!</AlertTitle>
+            Stock was NOT FOUND!
+          </Alert>
+        )}
+      </Snackbar>
     </>
   );
 };
