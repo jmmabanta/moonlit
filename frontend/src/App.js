@@ -1,13 +1,15 @@
 import Container from '@mui/material/Container';
 import Header from './components/Header';
-import StockPortfolio from './components/stocks/StockPortfolio';
 import axios from 'axios';
 import axiosRetry from 'axios-retry';
 import { useEffect, useState } from 'react';
+import Body from './components/Body';
 
 const App = () => {
   const [loading, setLoading] = useState(true);
   const [updateProgress, setUpdateProgress] = useState(0);
+
+  const [user, setUser] = useState({});
 
   axiosRetry(axios, {
     retries: 999,
@@ -31,6 +33,10 @@ const App = () => {
     );
   };
 
+  const loginUser = (user) => {
+    setUser(user);
+  };
+
   useEffect(() => {
     axios
       .get(process.env.REACT_APP_API_URL)
@@ -48,9 +54,18 @@ const App = () => {
 
   return (
     <div className="App">
-      <Header updateProgress={updateProgress} />
+      <Header
+        user={user}
+        isLoggedIn={!user || Object.keys(user).length !== 0}
+        loginUser={loginUser}
+      />
       <Container maxWidth="none" sx={{ paddingTop: '2em' }}>
-        <StockPortfolio resetCounter={resetCounter} />
+        <Body
+          isLoggedIn={!user || Object.keys(user).length !== 0}
+          loginUser={loginUser}
+          user={user}
+          resetCounter={resetCounter}
+        />
       </Container>
     </div>
   );

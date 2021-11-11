@@ -1,7 +1,7 @@
 from flask import Flask, Blueprint
 from flask_cors import CORS
+from .routes import main
 from .database import db
-from .views import main
 from .config import Config
 
 
