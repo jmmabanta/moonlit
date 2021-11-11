@@ -55,6 +55,7 @@ const App = () => {
   return (
     <div className="App">
       <Header
+        updateProgress={updateProgress}
         user={user}
         isLoggedIn={!user || Object.keys(user).length !== 0}
         loginUser={loginUser}
