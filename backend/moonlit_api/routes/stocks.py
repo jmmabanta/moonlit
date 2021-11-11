@@ -20,7 +20,6 @@ def get_stocks(user_id):
 
 
 def verify_stock(ticker):
-
     # Check if stock ticker exists, and add it to master db
     results = finnhubGet('/search?q=' + ticker)
     # print(results, file=sys.stderr)
@@ -63,7 +62,6 @@ def update_stocks():
 
 
 @stocks.route('/add', methods=['POST'])
-# TODO: Add stock ticker verification, and add it to master database and to user
 def add_stock():
     user_id = hex(int(request.form.get('user_id')))
     user = User.query.filter_by(google_id=user_id).first()
@@ -76,6 +74,7 @@ def add_stock():
         user.portfolio.append(verification[1])
         db.session.commit()
         return get_stocks(user_id)
+
     return "Stock Not Found!"
 
 
