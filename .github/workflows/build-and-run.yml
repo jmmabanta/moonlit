@@ -23,6 +23,7 @@ jobs:
         env:
           REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}
           REACT_APP_API_UPDATE: ${{ secrets.REACT_APP_API_UPDATE }}
+          REACT_APP_GOOGLE_CLIENT_ID: ${{ secrets.REACT_APP_GOOGLE_CLIENT_ID }}
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.5
