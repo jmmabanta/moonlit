@@ -20,9 +20,6 @@ def get_stocks(user_id):
 
 
 def verify_stock(ticker):
-    # Check if stock already belongs in master db
-    if Stock.query.filter_by(ticker=ticker).first() is not None:
-        return (True, ticker)
 
     # Check if stock ticker exists, and add it to master db
     results = finnhubGet('/search?q=' + ticker)
@@ -30,6 +27,11 @@ def verify_stock(ticker):
     if results['count'] >= 1:
         new_stock_ticker = results['result'][0]['symbol']
         new_stock_name = results['result'][0]['description']
+
+        # Check if stock already belongs in master db
+        if Stock.query.filter_by(ticker=new_stock_ticker).first() is not None:
+            return (True, new_stock_ticker)
+
         prices = finnhubGet('/quote?symbol' + new_stock_ticker)
         new_stock = Stock(new_stock_ticker, new_stock_name,
                           prices['c'], prices['d'])
