@@ -5,6 +5,7 @@ import axiosRetry from 'axios-retry';
 import { useEffect, useState } from 'react';
 import Body from './components/Body';
 import { Typography } from '@mui/material';
+import getApiRoute from './components/utils/getApiRoute';
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -40,7 +41,7 @@ const App = () => {
 
   useEffect(() => {
     axios
-      .get(process.env.REACT_APP_API_URL)
+      .get(getApiRoute())
       .then((res) => {
         console.log('CONNECTED!');
         console.log(res.data);

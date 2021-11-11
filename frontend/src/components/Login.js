@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useGoogleLogin } from 'react-google-login';
 import { generateNewToken } from './utils/generateNewToken';
 import GoogleIcon from '@mui/icons-material/Google';
+import getApiRoute from './utils/getApiRoute';
 
 const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 
@@ -19,7 +20,7 @@ const Login = (props) => {
       let form = new FormData();
       form.set('token_id', res.tokenId);
       try {
-        await axios.post(process.env.REACT_APP_API_URL, form).then((user) => {
+        await axios.post(getApiRoute(), form).then((user) => {
           // Insert state here
           props.loginUser(user.data);
           console.log(user.data);

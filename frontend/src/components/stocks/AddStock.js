@@ -15,6 +15,7 @@ import {
 import { styled } from '@mui/system';
 import AddIcon from '@mui/icons-material/Add';
 import axios from 'axios';
+import getApiRoute from '../utils/getApiRoute';
 
 // From: https://stackoverflow.com/questions/58963242/change-border-color-on-material-ui-textfield
 const TickerInput = styled(TextField)({
@@ -87,17 +88,15 @@ const AddStock = (props) => {
     ticker.set('ticker', newTicker);
     ticker.set('user_id', props.user['sub']);
 
-    await axios
-      .post(process.env.REACT_APP_API_URL + '/add', ticker)
-      .then((res) => {
-        if (typeof res.data !== 'string') {
-          props.newTicker(res.data);
-          setSuccess(true);
-        } else {
-          setSuccess(false);
-        }
-        setFetchingStock(false);
-      });
+    await axios.post(getApiRoute('/add'), ticker).then((res) => {
+      if (typeof res.data !== 'string') {
+        props.newTicker(res.data);
+        setSuccess(true);
+      } else {
+        setSuccess(false);
+      }
+      setFetchingStock(false);
+    });
 
     setOpenAlert(true);
     setNewTicker('');

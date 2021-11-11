@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import StockCard from './StockCard';
 import AddStock from './AddStock';
+import getApiRoute from '../utils/getApiRoute';
 
 /**
  * The 'main screen' that displays all of the user's stocks.
@@ -26,7 +27,7 @@ const StockPortfolio = (props) => {
     let user_id = new FormData();
     user_id.set('user_id', props.user['sub']);
     axios
-      .post(process.env.REACT_APP_API_URL + '/update', user_id)
+      .post(getApiRoute('/update'), user_id)
       .then((res) => {
         console.log(res.data);
         setStockData(res.data);
@@ -48,7 +49,7 @@ const StockPortfolio = (props) => {
       return old;
     });
 
-    axios.post(process.env.REACT_APP_API_URL + '/remove', removeForm);
+    axios.post(getApiRoute('/remove'), removeForm);
   };
 
   useEffect(() => {
