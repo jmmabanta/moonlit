@@ -1,9 +1,10 @@
-import { Container, Typography } from '@mui/material';
+import { Button, Container, Typography } from '@mui/material';
 import axios from 'axios';
-import { GoogleLogin } from 'react-google-login';
+import { useGoogleLogin } from 'react-google-login';
 import { generateNewToken } from './utils/generateNewToken';
+import GoogleIcon from '@mui/icons-material/Google';
 
-const CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
+const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 
 /**
  * The login introduction screen to Moonlit
@@ -13,7 +14,7 @@ const CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
  * @returns A basic screen prompting user to login with Google.
  */
 const Login = (props) => {
-  const handleSuccess = (res) => {
+  const onSuccess = (res) => {
     const authenticate = async () => {
       let form = new FormData();
       form.set('token_id', res.tokenId);
@@ -31,10 +32,18 @@ const Login = (props) => {
     generateNewToken(res);
   };
 
-  const handleFailure = (res) => {
+  const onFailure = (res) => {
     console.log('LOGIN FAILED');
     console.log(res);
   };
+
+  const { signIn } = useGoogleLogin({
+    onSuccess,
+    onFailure,
+    clientId,
+    isSignedIn: true,
+    cookiePolicy: 'single_host_origin'
+  });
 
   return (
     <Container>
@@ -44,13 +53,10 @@ const Login = (props) => {
       <Typography variant="subtitle1" color={'#FFFFFF'}>
         A place to keep track of all of your stocks.
       </Typography>
-      <GoogleLogin
-        clientId={CLIENT_ID}
-        cookiePolicy={'single_host_origin'}
-        onSuccess={handleSuccess}
-        onFailure={handleFailure}
-        isSignedIn={true}
-      />
+      <Button onClick={signIn} size="large" variant="contained">
+        <GoogleIcon sx={{ marginRight: '0.5em' }} />
+        Login With Google
+      </Button>
     </Container>
   );
 };
