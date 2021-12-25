@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import Body from './components/Body';
 import { Typography } from '@mui/material';
 import getApiRoute from './components/utils/getApiRoute';
+import { Route, Routes } from 'react-router-dom';
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -63,12 +64,19 @@ const App = () => {
         loginUser={loginUser}
       />
       <Container maxWidth="none" sx={{ paddingTop: '2em' }}>
-        <Body
-          isLoggedIn={!user || Object.keys(user).length !== 0}
-          loginUser={loginUser}
-          user={user}
-          resetCounter={resetCounter}
-        />
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <Body
+                isLoggedIn={!user || Object.keys(user).length !== 0}
+                loginUser={loginUser}
+                user={user}
+                resetCounter={resetCounter}
+              />
+            }
+          />
+        </Routes>
         <div style={{ position: 'fixed', bottom: 5, color: '#aaaaaa' }}>
           <Typography variant="overline">
             © 2021 John Mabanta ·{' '}
