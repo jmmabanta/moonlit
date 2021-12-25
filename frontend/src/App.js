@@ -7,6 +7,7 @@ import Body from './components/Body';
 import { Typography } from '@mui/material';
 import getApiRoute from './components/utils/getApiRoute';
 import { Route, Routes } from 'react-router-dom';
+import URLParamTest from './URLParamTest';
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -76,6 +77,7 @@ const App = () => {
               />
             }
           />
+          <Route path="/portfolio/:id" element={<URLParamTest />} />
         </Routes>
         <div style={{ position: 'fixed', bottom: 5, color: '#aaaaaa' }}>
           <Typography variant="overline">
