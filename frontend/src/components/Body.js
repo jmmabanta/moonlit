@@ -1,3 +1,4 @@
+import { useParams } from 'react-router-dom';
 import Login from './Login';
 import StockPortfolio from './stocks/StockPortfolio';
 
@@ -12,6 +13,8 @@ import StockPortfolio from './stocks/StockPortfolio';
  * @returns The main body of the web app.
  */
 const Body = (props) => {
+  const params = useParams();
+  console.log(params);
   if (!props.isLoggedIn) {
     return <Login loginUser={props.loginUser} />;
   }
