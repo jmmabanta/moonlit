@@ -4,10 +4,10 @@ import axios from 'axios';
 import axiosRetry from 'axios-retry';
 import { useEffect, useState } from 'react';
 import Body from './components/Body';
-import { Typography } from '@mui/material';
 import getApiRoute from './components/utils/getApiRoute';
 import { Route, Routes } from 'react-router-dom';
 import URLParamTest from './URLParamTest';
+import Footer from './components/Footer';
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -66,6 +66,7 @@ const App = () => {
       />
       <Container maxWidth="none" sx={{ paddingTop: '2em' }}>
         <Routes>
+          <Route path="/portfolio/:id" element={<URLParamTest />} />
           <Route
             path="/"
             element={
@@ -77,21 +78,8 @@ const App = () => {
               />
             }
           />
-          <Route path="/portfolio/:id" element={<URLParamTest />} />
         </Routes>
-        <div style={{ position: 'fixed', bottom: 5, color: '#aaaaaa' }}>
-          <Typography variant="overline">
-            © 2021 John Mabanta ·{' '}
-            <a
-              href="https://github.com/jmmabanta/moonlit"
-              target="_blank"
-              rel="noreferrer"
-              style={{ color: '#aaaaaa' }}
-            >
-              SOURCE CODE
-            </a>
-          </Typography>
-        </div>
+        <Footer />
       </Container>
     </div>
   );
