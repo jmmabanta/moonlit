@@ -1,7 +1,7 @@
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
+import LoggedInUser from './LoggedInUser';
 import Logo from './Logo';
-import UserInfo from './UserInfo';
 
 /**
  * The App Bar at the top of the page.
@@ -21,7 +21,7 @@ const Header = (props) => {
     >
       <Toolbar>
         <Logo updateProgress={props.updateProgress} />
-        <UserInfo user={props.user} loginUser={props.loginUser} />
+        <LoggedInUser user={props.user} loginUser={props.loginUser} />
       </Toolbar>
     </AppBar>
   );

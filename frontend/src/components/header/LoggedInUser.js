@@ -3,7 +3,7 @@ import { useGoogleLogout } from 'react-google-login';
 
 const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 
-const UserInfo = (props) => {
+const LoggedInUser = (props) => {
   const onLogoutSuccess = (res) => {
     props.loginUser({});
     window.location.reload();
@@ -56,4 +56,4 @@ const UserInfo = (props) => {
   );
 };
 
-export default UserInfo;
+export default LoggedInUser;
