@@ -1,11 +1,11 @@
 import Container from '@mui/material/Container';
-import Header from './components/Header';
+import Header from './components/header/Header';
 import axios from 'axios';
 import axiosRetry from 'axios-retry';
 import { useEffect, useState } from 'react';
 import Body from './components/Body';
 import getApiRoute from './components/utils/getApiRoute';
-import { Route, Routes, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import Footer from './components/Footer';
 
 const App = () => {
