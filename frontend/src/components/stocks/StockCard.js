@@ -18,9 +18,11 @@ const PriceText = styled(Typography)`
  * @property {float} currentPrice The current price of the stock.
  * @property {float} priceChange The change in price of the stock (+/-).
  * @property {function} removeStock Function to remove stock from portfolio.
+ * @property {boolean} shared Disables the remove stock button when viewing
+ *    shared portfolio
  * @param {CardProps} props - Contains the information to display.
  * @returns A small UI Card that shows, at a glance, the current stock price
- *          and the trend.
+ *    and the trend.
  */
 const StockCard = (props) => {
   const remove = () => {
@@ -48,15 +50,17 @@ const StockCard = (props) => {
           : '-$' + (props.priceChange * -1).toFixed(2)}
         )
       </PriceText>
-      <Fab
-        size="small"
-        color="secondary"
-        aria-label="remove-stock"
-        sx={{ position: 'absolute', top: 10, right: 10 }}
-        onClick={remove}
-      >
-        <RemoveIcon />
-      </Fab>
+      {!props.shared && (
+        <Fab
+          size="small"
+          color="secondary"
+          aria-label="remove-stock"
+          sx={{ position: 'absolute', top: 10, right: 10 }}
+          onClick={remove}
+        >
+          <RemoveIcon />
+        </Fab>
+      )}
     </Card>
   );
 };

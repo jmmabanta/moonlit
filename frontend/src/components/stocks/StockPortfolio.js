@@ -9,6 +9,7 @@ import getApiRoute from '../utils/getApiRoute';
  * The 'main screen' that displays all of the user's stocks.
  * @typedef PortfolioProps
  * @property {Object} user The current logged in user.
+ * @property {str} portfolioID Used to view another user's portfolio
  * @property {Function} resetCounter Reset the progress once stocks update
  *    and restart animation.
  * @param {PortfolioProps} props
@@ -25,7 +26,7 @@ const StockPortfolio = (props) => {
 
   const updateStockData = () => {
     let user_id = new FormData();
-    user_id.set('user_id', props.user['sub']);
+    user_id.set('user_id', props.portfolioID || props.user['sub']);
     axios
       .post(getApiRoute('/update'), user_id)
       .then((res) => {
@@ -78,6 +79,7 @@ const StockPortfolio = (props) => {
               currentPrice={stock['price']}
               priceChange={stock['change']}
               removeStock={removeStock}
+              shared={props.portfolioID}
             />
           </Grid>
         );
@@ -90,7 +92,9 @@ const StockPortfolio = (props) => {
           </Typography>
         </Container>
       )}
-      <AddStock user={props.user} newTicker={newTicker} />
+      {!props.portfolioID && (
+        <AddStock user={props.user} newTicker={newTicker} />
+      )}
     </Grid>
   );
 };

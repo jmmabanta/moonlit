@@ -5,16 +5,17 @@ import axiosRetry from 'axios-retry';
 import { useEffect, useState } from 'react';
 import Body from './components/Body';
 import getApiRoute from './components/utils/getApiRoute';
-import { Route, Routes } from 'react-router-dom';
-import URLParamTest from './URLParamTest';
+import { Route, Routes, useParams } from 'react-router-dom';
 import Footer from './components/Footer';
 
 const App = () => {
+  const params = useParams();
+
   const [loading, setLoading] = useState(true);
   const [updateProgress, setUpdateProgress] = useState(0);
-
   const [user, setUser] = useState({});
 
+  // Wake Heroku API
   axiosRetry(axios, {
     retries: 999,
     retryDelay: (retryCount) => retryCount * 1000
@@ -24,6 +25,7 @@ const App = () => {
     setUpdateProgress((current) => (current < 100 ? (current += 5) : current));
   };
 
+  // Manage the circular progress bar to next stock info update
   let progressAnim = null;
   const resetCounter = () => {
     if (progressAnim !== null) {
@@ -41,6 +43,7 @@ const App = () => {
     setUser(user);
   };
 
+  // Display loading message while waking/connecting to API
   useEffect(() => {
     axios
       .get(getApiRoute())
@@ -53,7 +56,6 @@ const App = () => {
         console.error(err);
       });
   }, []);
-
   if (loading) return <h1>Loading...</h1>;
 
   return (
@@ -65,20 +67,13 @@ const App = () => {
         loginUser={loginUser}
       />
       <Container maxWidth="none" sx={{ paddingTop: '2em' }}>
-        <Routes>
-          <Route path="/portfolio/:id" element={<URLParamTest />} />
-          <Route
-            path="/"
-            element={
-              <Body
-                isLoggedIn={!user || Object.keys(user).length !== 0}
-                loginUser={loginUser}
-                user={user}
-                resetCounter={resetCounter}
-              />
-            }
-          />
-        </Routes>
+        <Body
+          isLoggedIn={!user || Object.keys(user).length !== 0}
+          loginUser={loginUser}
+          user={user}
+          resetCounter={resetCounter}
+          portfolioID={params.id}
+        />
         <Footer />
       </Container>
     </div>
