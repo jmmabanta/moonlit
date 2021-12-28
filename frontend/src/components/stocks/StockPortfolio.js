@@ -4,11 +4,13 @@ import axios from 'axios';
 import StockCard from './StockCard';
 import AddStock from './AddStock';
 import getApiRoute from '../utils/getApiRoute';
+import SharePortfolio from './SharePortfolio';
 
 /**
  * The 'main screen' that displays all of the user's stocks.
  * @typedef PortfolioProps
  * @property {Object} user The current logged in user.
+ * @property {str} portfolioID Used to view another user's portfolio
  * @property {Function} resetCounter Reset the progress once stocks update
  *    and restart animation.
  * @param {PortfolioProps} props
@@ -24,12 +26,11 @@ const StockPortfolio = (props) => {
   };
 
   const updateStockData = () => {
-    let user_id = new FormData();
-    user_id.set('user_id', props.user['sub']);
+    let userID = new FormData();
+    userID.set('user_id', props.portfolioID || props.user['sub']);
     axios
-      .post(getApiRoute('/update'), user_id)
+      .post(getApiRoute('/update'), userID)
       .then((res) => {
-        console.log(res.data);
         setStockData(res.data);
         if (res.data.length > 0) props.resetCounter();
         setLoading(false);
@@ -78,6 +79,7 @@ const StockPortfolio = (props) => {
               currentPrice={stock['price']}
               priceChange={stock['change']}
               removeStock={removeStock}
+              shared={props.portfolioID}
             />
           </Grid>
         );
@@ -85,12 +87,19 @@ const StockPortfolio = (props) => {
       {stockData.length === 0 && (
         <Container sx={{ color: '#aaaaaa' }}>
           <Typography variant="h4">Nothing here!</Typography>
-          <Typography variant="overline">
-            Try adding some stocks using the button in the bottom right!
-          </Typography>
+          {!props.portfolioID && (
+            <Typography variant="overline">
+              Try adding some stocks using the button in the bottom right!
+            </Typography>
+          )}
         </Container>
       )}
-      <AddStock user={props.user} newTicker={newTicker} />
+      {!props.portfolioID && (
+        <>
+          <SharePortfolio userID={props.user['sub']} />
+          <AddStock user={props.user} newTicker={newTicker} />
+        </>
+      )}
     </Grid>
   );
 };

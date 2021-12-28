@@ -1,4 +1,3 @@
-import { useParams } from 'react-router-dom';
 import Login from './Login';
 import StockPortfolio from './stocks/StockPortfolio';
 
@@ -9,16 +8,21 @@ import StockPortfolio from './stocks/StockPortfolio';
  * @property {Object} user The current logged in user.
  * @property {boolean} isLoggedIn Either show user's portfolio or login screen.
  * @property {function} resetCounter Resets the circular update timer.
+ * @property {str} portfolioID Another user's portfolio
  * @param {BodyProps} props
  * @returns The main body of the web app.
  */
 const Body = (props) => {
-  const params = useParams();
-  console.log(params);
-  if (!props.isLoggedIn) {
+  if (!props.isLoggedIn && !props.portfolioID) {
     return <Login loginUser={props.loginUser} />;
   }
-  return <StockPortfolio user={props.user} resetCounter={props.resetCounter} />;
+  return (
+    <StockPortfolio
+      user={props.user}
+      resetCounter={props.resetCounter}
+      portfolioID={props.portfolioID}
+    />
+  );
 };
 
 export default Body;
