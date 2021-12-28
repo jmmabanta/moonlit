@@ -21,6 +21,7 @@ jobs:
           yarn
           yarn run build
         env:
+          REACT_APP_URL: ${{ secrets.REACT_APP_URL }}
           REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}
           REACT_APP_API_UPDATE: ${{ secrets.REACT_APP_API_UPDATE }}
           REACT_APP_GOOGLE_CLIENT_ID: ${{ secrets.REACT_APP_GOOGLE_CLIENT_ID }}
