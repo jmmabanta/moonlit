@@ -63,6 +63,7 @@ const App = () => {
       <Header
         updateProgress={updateProgress}
         user={user}
+        portfolioID={params.id}
         isLoggedIn={!user || Object.keys(user).length !== 0}
         loginUser={loginUser}
       />

@@ -25,12 +25,11 @@ const StockPortfolio = (props) => {
   };
 
   const updateStockData = () => {
-    let user_id = new FormData();
-    user_id.set('user_id', props.portfolioID || props.user['sub']);
+    let userID = new FormData();
+    userID.set('user_id', props.portfolioID || props.user['sub']);
     axios
-      .post(getApiRoute('/update'), user_id)
+      .post(getApiRoute('/update'), userID)
       .then((res) => {
-        console.log(res.data);
         setStockData(res.data);
         if (res.data.length > 0) props.resetCounter();
         setLoading(false);
@@ -87,9 +86,11 @@ const StockPortfolio = (props) => {
       {stockData.length === 0 && (
         <Container sx={{ color: '#aaaaaa' }}>
           <Typography variant="h4">Nothing here!</Typography>
-          <Typography variant="overline">
-            Try adding some stocks using the button in the bottom right!
-          </Typography>
+          {!props.portfolioID && (
+            <Typography variant="overline">
+              Try adding some stocks using the button in the bottom right!
+            </Typography>
+          )}
         </Container>
       )}
       {!props.portfolioID && (
