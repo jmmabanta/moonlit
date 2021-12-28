@@ -33,9 +33,9 @@ const OtherUser = (props) => {
     <div
       style={{
         display: 'flex',
-        flex: 3.8,
         justifyContent: 'center',
         alignItems: 'center',
+        flex: 1,
         flexDirection: 'column'
       }}
     >
@@ -43,7 +43,7 @@ const OtherUser = (props) => {
         <>
           <Avatar
             src={otherUser['picture'].slice(0, -6)}
-            style={{ marginBottom: '1%' }}
+            style={{ marginBottom: '1vh' }}
           />
           <Typography>Viewing {otherUser['name']}'s Portfolio</Typography>
         </>

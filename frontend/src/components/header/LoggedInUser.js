@@ -20,40 +20,37 @@ const LoggedInUser = (props) => {
   });
 
   return (
-    <>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          marginLeft: 0,
-          flex: 1
-        }}
-      >
-        {(!props.user || Object.keys(props.user).length !== 0) && (
-          <>
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'flex-end'
-              }}
-            >
-              <Typography variant="overline" sx={{ margin: 0 }}>
-                Hello, {props.user['name'] || ''}
-              </Typography>
-              <Button size="small" sx={{ margin: 0 }} onClick={signOut}>
-                LOGOUT
-              </Button>
-            </div>
-            <Avatar
-              src={props.user['picture'].slice(0, -6)}
-              sx={{ marginLeft: '1em', height: '2.5em', width: '2.5em' }}
-            />
-          </>
-        )}
-      </div>
-    </>
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'flex-end',
+        alignItems: 'center',
+        flex: 1
+      }}
+    >
+      {Object.keys(props.user).length !== 0 && (
+        <>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'flex-end'
+            }}
+          >
+            <Typography variant="overline" sx={{ margin: 0 }}>
+              Hello, {props.user['name'] || ''}
+            </Typography>
+            <Button size="small" sx={{ margin: 0 }} onClick={signOut}>
+              LOGOUT
+            </Button>
+          </div>
+          <Avatar
+            src={props.user['picture'].slice(0, -6)}
+            sx={{ marginLeft: '1em', height: '2.5em', width: '2.5em' }}
+          />
+        </>
+      )}
+    </div>
   );
 };
 

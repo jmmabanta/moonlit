@@ -1,15 +1,21 @@
 import { CircularProgress, Typography } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Logo = (props) => {
+  const navigate = useNavigate();
   return (
     <div style={{ display: 'flex', flexDirection: 'row', flex: 1 }}>
       <div>
-        <Link to="/" style={{ textDecoration: 'none', color: 'white' }}>
-          <Typography variant="h3" sx={{ margin: 0 }}>
-            Moonlit
-          </Typography>
-        </Link>
+        <Typography
+          variant="h3"
+          sx={{ margin: 0 }}
+          onClick={() => {
+            navigate('/');
+            window.location.reload();
+          }}
+        >
+          Moonlit
+        </Typography>
         <Typography variant="subtitle1" sx={{ margin: 0, color: '#FFD700' }}>
           To the moon, To the stars...
         </Typography>

@@ -24,7 +24,11 @@ const Header = (props) => {
         padding: '0.25em'
       }}
     >
-      <Toolbar>
+      <Toolbar
+        sx={{
+          display: 'flex'
+        }}
+      >
         <Logo updateProgress={props.updateProgress} />
         <OtherUser otherUserID={props.portfolioID} />
         <LoggedInUser user={props.user} loginUser={props.loginUser} />
