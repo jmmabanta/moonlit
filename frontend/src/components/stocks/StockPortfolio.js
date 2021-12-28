@@ -4,6 +4,7 @@ import axios from 'axios';
 import StockCard from './StockCard';
 import AddStock from './AddStock';
 import getApiRoute from '../utils/getApiRoute';
+import SharePortfolio from './SharePortfolio';
 
 /**
  * The 'main screen' that displays all of the user's stocks.
@@ -94,7 +95,10 @@ const StockPortfolio = (props) => {
         </Container>
       )}
       {!props.portfolioID && (
-        <AddStock user={props.user} newTicker={newTicker} />
+        <>
+          <SharePortfolio userID={props.user['sub']} />
+          <AddStock user={props.user} newTicker={newTicker} />
+        </>
       )}
     </Grid>
   );

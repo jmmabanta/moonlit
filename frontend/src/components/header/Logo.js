@@ -8,7 +8,7 @@ const Logo = (props) => {
       <div>
         <Typography
           variant="h3"
-          sx={{ margin: 0 }}
+          sx={{ margin: 0, cursor: 'pointer' }}
           onClick={() => {
             navigate('/');
             window.location.reload();

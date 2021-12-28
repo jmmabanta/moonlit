@@ -18,7 +18,7 @@ import axios from 'axios';
 import getApiRoute from '../utils/getApiRoute';
 
 // From: https://stackoverflow.com/questions/58963242/change-border-color-on-material-ui-textfield
-const TickerInput = styled(TextField)({
+export const TickerInput = styled(TextField)({
   [`& .${outlinedInputClasses.root} .${outlinedInputClasses.notchedOutline}`]: {
     borderColor: 'white'
   },
@@ -134,35 +134,32 @@ const AddStock = (props) => {
         <Container
           sx={{
             backgroundColor: '#343435',
-            color: 'white',
             padding: '1em 2em',
             display: 'flex',
-            flexDirection: 'column'
+            justifyContent: 'space-evenly'
           }}
         >
-          <div style={{ display: 'flex', justifyContent: 'space-evenly' }}>
-            <TickerInput
-              id="outlined-basic"
-              label="Enter Stock Ticker"
-              variant="outlined"
-              value={newTicker}
-              disabled={fetchingStock}
-              onChange={handleTicker}
-              sx={{ marginRight: '1em' }}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter') {
-                  submitTicker();
-                }
-              }}
-            />
-            <Button
-              variant="outlined"
-              disabled={fetchingStock}
-              onClick={submitTicker}
-            >
-              Add Stock
-            </Button>
-          </div>
+          <TickerInput
+            id="outlined-basic"
+            label="Enter Stock Ticker"
+            variant="outlined"
+            value={newTicker}
+            disabled={fetchingStock}
+            onChange={handleTicker}
+            sx={{ marginRight: '1em' }}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                submitTicker();
+              }
+            }}
+          />
+          <Button
+            variant="outlined"
+            disabled={fetchingStock}
+            onClick={submitTicker}
+          >
+            Add Stock
+          </Button>
         </Container>
       </Popover>
       <Snackbar
