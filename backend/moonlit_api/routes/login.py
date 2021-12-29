@@ -1,5 +1,4 @@
 import os
-import sys
 from flask import Blueprint, jsonify, request
 import google.auth.transport.requests
 from google.oauth2 import id_token
