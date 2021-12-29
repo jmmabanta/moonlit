@@ -84,11 +84,11 @@ const AddStock = (props) => {
 
   const submitTicker = async () => {
     setFetchingStock(true);
-    let ticker = new FormData();
-    ticker.set('ticker', newTicker);
-    ticker.set('user_id', props.user['sub']);
-
-    await axios.post(getApiRoute('/add'), ticker).then((res) => {
+    const newStock = {
+      ticker: newTicker,
+      user_id: props.user['sub']
+    };
+    await axios.post(getApiRoute('add'), newStock).then((res) => {
       if (typeof res.data !== 'string') {
         props.newTicker(res.data);
         setSuccess(true);

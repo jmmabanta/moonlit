@@ -62,10 +62,11 @@ def update_stocks():
 
 
 @stocks.route('/add', methods=['POST'])
-def add_stock():
-    user_id = hex(int(request.form.get('user_id')))
+def add():
+    new_stock = request.json
+    user_id = hex(int(new_stock['user_id']))
     user = User.query.filter_by(google_id=user_id).first()
-    ticker = str.upper(request.form.get('ticker'))
+    ticker = str.upper(new_stock['ticker'])
 
     verification = verify_stock(ticker)
     if verification[0]:
@@ -79,10 +80,11 @@ def add_stock():
 
 
 @stocks.route('/remove', methods=['POST'])
-def remove_stock():
-    user_id = hex(int(request.form.get('user_id')))
+def remove():
+    remove_stock = request.json
+    user_id = hex(int(remove_stock['user_id']))
     user = User.query.filter_by(google_id=user_id).first()
-    ticker = str.upper(request.form.get('ticker'))
+    ticker = str.upper(remove_stock['ticker'])
     user.portfolio.remove(ticker)
     db.session.commit()
     return "STOCK REMOVED!"

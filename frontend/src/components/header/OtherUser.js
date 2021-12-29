@@ -14,14 +14,16 @@ const OtherUser = (props) => {
   const [otherUser, setOtherUser] = useState({});
 
   const getOtherUser = () => {
-    let otherUserData = new FormData();
-    otherUserData.set('user_id', props.otherUserID);
     axios
-      .post(getApiRoute('/userinfo'), otherUserData)
+      .post(getApiRoute('userinfo'), props.otherUserID, {
+        headers: { 'Content-Type': 'text/plain' }
+      })
       .then((res) => {
         setOtherUser(res.data);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   useEffect(() => {

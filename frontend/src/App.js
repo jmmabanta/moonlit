@@ -48,8 +48,6 @@ const App = () => {
     axios
       .get(getApiRoute())
       .then((res) => {
-        console.log('CONNECTED!');
-        console.log(res.data);
         setLoading(false);
       })
       .catch((err) => {

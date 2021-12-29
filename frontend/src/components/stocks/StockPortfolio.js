@@ -29,7 +29,7 @@ const StockPortfolio = (props) => {
     let userID = new FormData();
     userID.set('user_id', props.portfolioID || props.user['sub']);
     axios
-      .post(getApiRoute('/update'), userID)
+      .post(getApiRoute('update'), userID)
       .then((res) => {
         setStockData(res.data);
         if (res.data.length > 0) props.resetCounter();
@@ -41,16 +41,17 @@ const StockPortfolio = (props) => {
   };
 
   const removeStock = (id) => {
-    const removeForm = new FormData();
-    removeForm.set('user_id', props.user['sub']);
-    removeForm.set('ticker', stockData[id]['ticker']);
-
+    const remove = {
+      ticker: stockData[id]['ticker'],
+      user_id: props.user['sub']
+    };
     setStockData((old) => {
       old.splice(id, 1);
       return old;
     });
-
-    axios.post(getApiRoute('/remove'), removeForm);
+    axios.post(getApiRoute('remove'), remove).catch((err) => {
+      console.error(err);
+    });
   };
 
   useEffect(() => {

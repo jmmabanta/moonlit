@@ -1,4 +1,5 @@
 import os
+import sys
 from flask import Blueprint, jsonify, request
 import google.auth.transport.requests
 from google.oauth2 import id_token
@@ -14,7 +15,7 @@ login = Blueprint('login', __name__)
 @login.route('/', methods=['POST'])
 # From https://github.com/adpeace/helloapp-auth-example
 def login_user():
-    token_id = request.form.get('token_id')
+    token_id = request.data
     google_request = google.auth.transport.requests.Request()
 
     # Verify login token

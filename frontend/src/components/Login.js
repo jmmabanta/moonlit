@@ -17,14 +17,15 @@ const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 const Login = (props) => {
   const onSuccess = (res) => {
     const authenticate = async () => {
-      let form = new FormData();
-      form.set('token_id', res.tokenId);
       try {
-        await axios.post(getApiRoute(), form).then((user) => {
-          // Insert state here
-          props.loginUser(user.data);
-          console.log(user.data);
-        });
+        await axios
+          .post(getApiRoute(), res.tokenId, {
+            headers: { 'Content-Type': 'text/plain' }
+          })
+          .then((user) => {
+            // Insert state here
+            props.loginUser(user.data);
+          });
       } catch (err) {
         console.error(err);
       }
