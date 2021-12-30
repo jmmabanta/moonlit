@@ -24,4 +24,4 @@ A simple website that lets you track your favourite stocks
 
 3. Finally, go back to the repo's directory: `moonlit/`, and simply run: `docker compose up` to spin-up both frontend and backend containers.
 
-4. Go to `http://localhost:5000/` to view the website.
+4. Go to `http://localhost:3000/moonlit` to view the website.
