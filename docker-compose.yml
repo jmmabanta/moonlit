@@ -1,18 +1,31 @@
 version: "3"
 
 services:
+  db:
+    image: postgres:alpine
+    environment:
+      - POSTGRES_DB=moonlitdb
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./db/data:/var/lib/postgresql/data
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
   backend:
     build:
       context: ./backend
       dockerfile: Dockerfile.backend
     environment:
-      - DATABASE_URL
+      - DATABASE_URL=postgres://postgres:postgres@db:5432/moonlitdb
       - FINNHUB_KEY
       - GOOGLE_CLIENT_ID
     volumes:
       - ./backend:/app
     ports:
       - "5000:5000"
+    depends_on:
+      - db
   frontend:
     build:
       context: ./frontend

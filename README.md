@@ -6,9 +6,6 @@ A simple website that lets you track your favourite stocks
 
 1. Inside the repo's directory: `moonlit/`, create a `.env` file with these environment varables:
 
-   - `DATABASE_URL`: The URL of the PostgreSQL database
-     - Right now, there are no db migrations (haven't gotten around to learning it yet :/) so ensure that the db has two tabes: `stocks` and `users`.
-     - Refer to `moonlit/backend/moonlit_api/models.py` for how these tables are setup.
    - `FINNHUB_KEY`: Your [finnhub.io](https://finnhub.io/) API key for stock information
    - `GOOGLE_CLIENT_ID`: Your Google OAuth Client ID for user login with Google.
 
