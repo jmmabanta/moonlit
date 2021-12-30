@@ -18,8 +18,8 @@ services:
       dockerfile: Dockerfile.backend
     environment:
       - DATABASE_URL=postgres://postgres:postgres@db:5432/moonlitdb
-      - FINNHUB_KEY
-      - GOOGLE_CLIENT_ID
+      - FINNHUB_KEY=${FINNHUB_KEY}
+      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
     volumes:
       - ./backend:/app
     ports:
@@ -30,6 +30,11 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile.frontend
+    environment:
+      - REACT_APP_URL=http://localhost:3000/moonlit/
+      - REACT_APP_API_URL=http://localhost:5000/
+      - REACT_APP_API_UPDATE=45000
+      - REACT_APP_GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
     volumes:
       - ./frontend:/usr/src/app
       - /usr/src/app/node_modules
